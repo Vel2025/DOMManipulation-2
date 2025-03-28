@@ -10,22 +10,28 @@
 // //   ];
 
 var menuLinks = [
-    {text: 'about', href: '/about'},
-    {text: 'catalog', href: '#', subLinks: [
-      {text: 'all', href: '/catalog/all'},
-      {text: 'top selling', href: '/catalog/top'},
-      {text: 'search', href: '/catalog/search'},
-    ]},
-    {text: 'orders', href: '#' , subLinks: [
-      {text: 'new', href: '/orders/new'},
-      {text: 'pending', href: '/orders/pending'},
-      {text: 'history', href: '/orders/history'},
-    ]},
-    {text: 'account', href: '#', subLinks: [
-      {text: 'profile', href: '/account/profile'},
-      {text: 'sign out', href: '/account/signout'},
-    ]},
-  ];
+  { text: 'about', href: '/about' },
+  {
+    text: 'catalog', href: '#', subLinks: [
+      { text: 'all', href: '/catalog/all' },
+      { text: 'top selling', href: '/catalog/top' },
+      { text: 'search', href: '/catalog/search' },
+    ]
+  },
+  {
+    text: 'orders', href: '#', subLinks: [
+      { text: 'new', href: '/orders/new' },
+      { text: 'pending', href: '/orders/pending' },
+      { text: 'history', href: '/orders/history' },
+    ]
+  },
+  {
+    text: 'account', href: '#', subLinks: [
+      { text: 'profile', href: '/account/profile' },
+      { text: 'sign out', href: '/account/signout' },
+    ]
+  },
+];
 
 let mainEl = document.querySelector("main");
 mainEl.style.backgroundColor = "var(--main-bg)";
@@ -35,16 +41,16 @@ mainEl.classList.add(`flex-ctr`);
 
 // //Part-2
 let topMenuEl = document.getElementById("top-menu");
-topMenuEl.style.height ="100%";
+topMenuEl.style.height = "100%";
 topMenuEl.style.backgroundColor = "var(--top-menu-bg)";
 topMenuEl.classList.add("flex-around");
 
 // //Part-3
 menuLinks.forEach((link) => {
-const anchor = document.createElement("a");
-anchor.href = link.href;
-anchor.textContent = link.text;
-topMenuEl.appendChild(anchor);
+  const anchor = document.createElement("a");
+  anchor.href = link.href;
+  anchor.textContent = link.text;
+  topMenuEl.appendChild(anchor);
 
 });
 
@@ -68,33 +74,33 @@ subMenuEl.style.top = '0';
 
 let topMenuLinks = topMenuEl.querySelectorAll("a");
 
-topMenuEl.addEventListener("click",  (e) =>{ 
-  e.preventDefault();  
-  
-  if (!e.target.matches('a')) { 
-      return; 
+topMenuEl.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  if (!e.target.matches('a')) {
+    return;
   }
-  console.log(e.target.textContent) 
+  console.log(e.target.textContent)
 
-  topMenuLinks.forEach(link => link.classList.remove("active")); 
+  topMenuLinks.forEach(link => link.classList.remove("active"));
 
-  let clickedOn = e.target 
-  clickedOn.classList.add("active"); 
+  let clickedOn = e.target
+  clickedOn.classList.add("active");
 
-  let linkData = menuLinks.find(link => link.text === clickedOn.textContent) 
+  let linkData = menuLinks.find(link => link.text === clickedOn.textContent)
 
 
   if (linkData && linkData.subLinks) {
-      subMenuEl.style.top = "100%"; 
-      buildSubmenu(linkData.subLinks);
+    subMenuEl.style.top = "100%";
+    buildSubmenu(linkData.subLinks);
 
   } else {
-      subMenuEl.style.top = "0"; 
+    subMenuEl.style.top = "0";
   }
 
   if (clickedOn.textContent === "about") {
-      mainEl.innerHTML = `<h1>${clickedOn.textContent}</h1>`;
-      subMenuEl.style.top = 0;
+    mainEl.innerHTML = `<h1>${clickedOn.textContent}</h1>`;
+    subMenuEl.style.top = 0;
   }
 })
 
@@ -105,23 +111,23 @@ function buildSubmenu(subLinks) {
   subMenuEl.innerHTML = "";
 
   subLinks.forEach(link => {
-      let a = document.createElement('a') 
-      a.setAttribute("href", link.href);  
-      a.textContent = link.text; 
-      subMenuEl.appendChild(a); 
+    let a = document.createElement('a')
+    a.setAttribute("href", link.href);
+    a.textContent = link.text;
+    subMenuEl.appendChild(a);
   })
 
 }
 
-subMenuEl.addEventListener("click", (e)=> {
-  e.preventDefault(); 
+subMenuEl.addEventListener("click", (e) => {
+  e.preventDefault();
 
-  if (!e.target.matches("a")) return; 
+  if (!e.target.matches("a")) return;
 
-  console.log("Submenu item clicked:", e.target.textContent); 
-  subMenuEl.style.top = "0"; 
-  topMenuLinks.forEach(link => link.classList.remove("active")); 
-  mainEl.innerHTML = `<h1>${e.target.textContent}</h1>`; 
+  console.log("Submenu item clicked:", e.target.textContent);
+  subMenuEl.style.top = "0";
+  topMenuLinks.forEach(link => link.classList.remove("active"));
+  mainEl.innerHTML = `<h1>${e.target.textContent}</h1>`;
   mainEl.innerHTML = mainEl.innerHTML.toUpperCase();
 
 })
